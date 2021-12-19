@@ -42,12 +42,28 @@ const cats = [
 ];
 
 /* Your tasks for part 1: 🔻 
-- 👉 Add request handlers for your API that will handle requests to the path "/cats" for all the 
-cats, providing the data in the cats array in this file. Test this in your browser.
-- 👉 Add code to also handle requests for a cat by id using params and cats by name using a query. 
-Test this in your browser.
-- 👉 Go to main.js in the public/js folder, and write the code needed to hook up the button with id 
-"get-cats" to show the data on the front end.
-*/
+- 👉 Add request handlers for your API that will handle requests to the path "/cats" for all the cats, providing the data in the cats array in this file. Test this in your browser. */
+
+app.get("/cats", function (req, res) {
+  function getAllCats() {
+    return cats;
+  }
+  res.json({ message: true, payload: getAllCats() });
+});
+
+/* - 👉 Add code to also handle requests for a cat by id using params and cats by name using a query. Test this in your browser. */
+
+app.get("/cats/:id", function (req, res) {
+  const id = Number(req.params.id);
+  function getCatsById(id) {
+    return cats.filter((cat) => {
+      return cat.id === id;
+    });
+  }
+  res.json({ message: true, payload: getCatsById(id) });
+});
+
+/*- 👉 Go to main.js in the public/js folder, and write the code needed to hook up the button with id "get-cats" to show the data on the front end.
+ */
 
 export default app;
