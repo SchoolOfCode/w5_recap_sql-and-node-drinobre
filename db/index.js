@@ -5,11 +5,17 @@ const pool = new pg.Pool({
   user: config.username,
   host: config.dbHost,
   database: config.dbName,
-  port: config.dbHost,
+  password: config.password,
+  port: config.dbPort,
+  ssl: { rejectUnauthorized: false },
 });
 
-const query = (text, params) => {
-  return pool.query(text, params);
-};
+console.log("dbPort", config.dbPort);
+console.log("databaseHost:-", config.dbHost);
+console.log("databaseName:-", config.dbName);
+console.log("username:-", config.username);
+console.log("password:-", config.password);
 
-export default query;
+export default function query(text, params, callback) {
+  return pool.query(text, params, callback);
+}
