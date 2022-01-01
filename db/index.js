@@ -10,12 +10,6 @@ const pool = new pg.Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-console.log("dbPort", config.dbPort);
-console.log("databaseHost:-", config.dbHost);
-console.log("databaseName:-", config.dbName);
-console.log("username:-", config.username);
-console.log("password:-", config.password);
-
 export default function query(text, params, callback) {
   return pool.query(text, params, callback);
 }

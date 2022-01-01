@@ -3,7 +3,7 @@ import { fileURLToPath } from "url";
 import path, { dirname } from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import cats from "./cats-data.js";
+import { getAllCats, getCatsById } from "./models/index.js";
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
@@ -21,31 +21,29 @@ app.get("/", function (req, res, next) {
   res.render("index", { title: "Books" });
 });
 
-/* Your tasks for part 1: 🔻 
-- 👉 Add request handlers for your API that will handle requests to the path "/cats" for all the cats, providing the data in the cats array in this file. Test this in your browser. */
-
-app.get("/cats", function (req, res) {
-  function getAllCats() {
-    return cats;
-  }
-  res.json({ message: true, payload: getAllCats() });
+// Get request all
+app.get("/cats", async function (req, res) {
+  let result = await getAllCats();
+  res.json({ message: true, payload: result });
 });
 
-console.log(cats);
-
-/* - 👉 Add code to also handle requests for a cat by id using params and cats by name using a query. Test this in your browser. */
-
-app.get("/cats/:id", function (req, res) {
-  const id = Number(req.params.id);
-  function getCatsById(id) {
-    return cats.filter((cat) => {
-      return cat.id === id;
-    });
-  }
-  res.json({ message: true, payload: getCatsById(id) });
+//Get request cats by id
+app.get("/cats/:id", async function (req, res) {
+  let id = Number(req.params.id);
+  let result = await getCatsById(id);
+  res.json({ message: true, payload: result });
 });
-
-/*- 👉 Go to main.js in the public/js folder, and write the code needed to hook up the button with id "get-cats" to show the data on the front end.
- */
 
 export default app;
+
+// /* - 👉 Add code to also handle requests for a cat by id using params and cats by name using a query. Test this in your browser. */
+
+// app.get("/cats/:id", function (req, res) {
+//   const id = Number(req.params.id);
+//   function getCatsById(id) {
+//     return cats.filter((cat) => {
+//       return cat.id === id;
+//     });
+//   }
+//   res.json({ message: true, payload: getCatsById(id) });
+// });
