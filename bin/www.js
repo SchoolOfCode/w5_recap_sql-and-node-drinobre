@@ -16,7 +16,6 @@ const debug = debugLib("your-project-name:server");
 
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
-console.log(port);
 
 /**
  * Create HTTP server.
