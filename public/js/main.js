@@ -4,10 +4,10 @@
 // Define the element using CSS selector
 const catsSection = document.querySelector("#cats");
 const getCatsButton = document.querySelector("#get-cats");
-const submitButton = document.querySelector("button[type='submit']");
+//const submitButton = document.querySelector("button[type='submit']");
 
 // Add event listener
-submitButton.addEventListener("click", handleSubmit);
+//submitButton.addEventListener("click", handleSubmit);
 getCatsButton.addEventListener("click", handleClick);
 
 function handleSubmit(event) {
@@ -28,8 +28,8 @@ async function addCatInfo() {
 }
 
 function gatherFormData() {
-  const catName = document.querySelector("#catName").value;
-  const humanName = document.querySelector("#humanName").value;
+  const name = document.querySelector("#catName").value;
+  const human = document.querySelector("#humanName").value;
   const hobby = document.querySelector("#hobby").value;
   return {
     name,
@@ -47,7 +47,7 @@ function handleClick(event) {
 
 async function getCats() {
   const response = await fetch(`/cats`);
-  const { payload } = await response.json();
+  const { payload } = await response.json(); // save variable as an object ???
   catsSection.innerHTML = "";
   console.log(payload);
   payload.forEach(renderCat);
